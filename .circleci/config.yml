@@ -15,7 +15,7 @@ jobs:
             cd doc
             make html
       - store_artifacts:
-            path: build/html
+            path: doc/build/html
             destination: html
 
 # Invoke jobs via workflows
