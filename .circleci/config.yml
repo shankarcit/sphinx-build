@@ -10,10 +10,10 @@ jobs:
       - checkout
       - run: pip install --user sphinx_rtd_theme sphinx autodocsumm
       - run:
-        name: Build doc
-        command: |
-          cd doc
-          make html
+          name: Build doc
+          command: |
+            cd doc
+            make html
       - store_artifacts:
             path: doc/_build/html/
             destination: html
