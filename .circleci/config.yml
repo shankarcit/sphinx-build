@@ -4,7 +4,7 @@ version: 2.1
 jobs:
   make-doc:
     docker:
-      -image: circleci/python:3.9-buster
+      - image: circleci/python:3.9-buster
     steps:
       - run: sudo apt-get update
       - checkout
