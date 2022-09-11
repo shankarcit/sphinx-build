@@ -18,7 +18,11 @@ jobs:
       - store_artifacts:
             path: doc/build/html
             destination: html
-      - run: docker build -t shankarcit/app:1 .
+      - run: 
+          name: Build Docker Image
+          command: |
+            cd doc
+            docker build -t shankarcit/app:1 .
 
 
 # Invoke jobs via workflows
