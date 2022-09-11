@@ -43,8 +43,7 @@ jobs:
       - run: 
           name: Build Docker Image
           command: |
-            echo $(ls)
-            cd /tmp/workspace/
+            cd /tmp/workspace/source/
             docker build -t shankarcit/app:1 .
 
 # Invoke jobs via workflows
