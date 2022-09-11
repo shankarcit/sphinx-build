@@ -29,8 +29,8 @@ jobs:
             - cp -r doc/build/html/* workspace/html
       - persist_to_workspace:
           root: workspace
-#          paths:
-            - workspace
+          paths:
+            - html
 
   make-docker-image:
 
