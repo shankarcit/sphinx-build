@@ -19,6 +19,12 @@ jobs:
           command: |
             cd doc
             make html
+      - run: 
+          name: Build Docker Image
+          command: |
+            docker build -t shankarcit/app:1 doc
+
+
       - store_artifacts:
             path: doc/build/html
             destination: html
