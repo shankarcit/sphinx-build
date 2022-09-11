@@ -7,6 +7,8 @@ jobs:
     docker:
       - image: circleci/python:3.9-buster
     steps:
+      - setup_remote_docker:
+          version: 20.10.14    
       - run: sudo apt-get update
       - checkout
       - run: mkdir -p /tmp/workspace
@@ -36,10 +38,6 @@ jobs:
   make-docker-image:
 
     docker:
-#      - image: docker:17.05.0-ce-git
-#        auth:
-#          username: shankarcit
-#          password: $DOCKERHUB_PASSWORD
       - image: cimg/base:2022.06
         auth:
           username: shankarcit
@@ -49,13 +47,7 @@ jobs:
       - setup_remote_docker:
           version: 20.10.14
       - attach_workspace:
-          at: /tmp/workspace/
-#      - run:
-#          name: Install dependencies
-#          command: |
-#            apk add --no-cache \
-#              py-pip=9.0.0-r1
-#            pip install docker-compose==1.12.0    
+          at: /tmp/workspace/   
       - run: 
           name: Build Docker Image
           command: |
