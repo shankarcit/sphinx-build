@@ -36,19 +36,26 @@ jobs:
   make-docker-image:
 
     docker:
-      - image: docker:17.05.0-ce-git
+#      - image: docker:17.05.0-ce-git
 #        auth:
 #          username: shankarcit
 #          password: $DOCKERHUB_PASSWORD
+      - image: cimg/base:2022.06
+        auth:
+          username: shankarcit
+          password: $DOCKERHUB_PASSWORD
+
     steps:
+      - setup_remote_docker:
+          version: 20.10.14
       - attach_workspace:
           at: /tmp/workspace/
-      - run:
-          name: Install dependencies
-          command: |
-            apk add --no-cache \
-              py-pip=9.0.0-r1
-            pip install docker-compose==1.12.0    
+#      - run:
+#          name: Install dependencies
+#          command: |
+#            apk add --no-cache \
+#              py-pip=9.0.0-r1
+#            pip install docker-compose==1.12.0    
       - run: 
           name: Build Docker Image
           command: |
