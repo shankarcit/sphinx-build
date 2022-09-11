@@ -45,7 +45,7 @@ workflows:
           platform: linux/amd64
           public-registry: false
           push-image: true
-          repo: ecr-shankar-tool-box
+          repo: ecr-shankar-tool-box/demo-app
           repo-scan-on-push: true
           skip-when-tags-exist: false
-          tag: 'demo-app:latest'    
+          tag: 'latest'    
