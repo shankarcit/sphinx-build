@@ -45,7 +45,6 @@ workflows:
           platform: linux/amd64
           public-registry: false
           push-image: true
-          registry-id: 056186925767
           repo: ecr-shankar-tool-box
           repo-scan-on-push: true
           skip-when-tags-exist: false
