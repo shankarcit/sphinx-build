@@ -36,10 +36,10 @@ jobs:
   make-docker-image:
 
     docker:
-      - image: cimg/base:current
-        auth:
-          username: shankarcit
-          password: $DOCKERHUB_PASSWORD
+      - image: docker:17.05.0-ce-git
+#        auth:
+#          username: shankarcit
+#          password: $DOCKERHUB_PASSWORD
     steps:
       - attach_workspace:
           at: /tmp/workspace/
