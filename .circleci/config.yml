@@ -26,7 +26,7 @@ jobs:
       - run: 
           name: Build Docker Image
           command: |
-            cd doc
+            cd html
             docker build -t shankarcit/app:1 .
 
 
