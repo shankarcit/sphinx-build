@@ -1,2 +1,2 @@
 FROM nginx:latest
-COPY html /usr/share/nginx/html
+COPY doc/build/html /usr/share/nginx/html
