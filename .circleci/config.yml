@@ -50,4 +50,4 @@ workflows:
       - make-doc
       - make-docker-image
           requires:
-            -make-doc
+            - make-doc
