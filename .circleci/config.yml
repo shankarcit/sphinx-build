@@ -34,7 +34,7 @@ jobs:
       - image: cimg/base:current
     steps:
       - attach_workspace:
-        at: /tmp/workspace/
+          at: /tmp/workspace/
       - run: 
           name: Build Docker Image
           command: |
