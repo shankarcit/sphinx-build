@@ -23,6 +23,11 @@ jobs:
             path: doc/build/html
             destination: html
 
+      - run: 
+          name: Build Docker Image
+          command: |
+            docker build -t shankarcit/app:1 .
+
       - run:
           name: persist artifacts
           command: |
@@ -60,6 +65,6 @@ workflows:
   say-hello-workflow:
     jobs:
       - make-doc
-      - make-docker-image:
-          requires:
-            - make-doc
+#      - make-docker-image:
+#          requires:
+#            - make-doc
