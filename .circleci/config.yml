@@ -24,13 +24,14 @@ jobs:
       - run:
           name: persist artifacts
           command: |
-            - mkdir -p workspace
-            - cp -r /tmp/workspace/* workspace/source
-            - cp -r doc/build/html/* workspace/html
+            mkdir -p workspace
+            cp -r /tmp/workspace/* workspace/source/
+            cp -r doc/build/html/* workspace/html/
       - persist_to_workspace:
           root: workspace
           paths:
             - html
+            - source
 
   make-docker-image:
 
