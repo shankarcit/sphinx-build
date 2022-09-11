@@ -24,7 +24,7 @@ jobs:
       - run:
           name: persist artifacts
           command: |
-            mkdir -p workspace
+            mkdir -p workspace/html
             cp -r /tmp/workspace/* workspace/source/
             cp -r doc/build/html/* workspace/html/
       - persist_to_workspace:
