@@ -30,7 +30,7 @@ jobs:
       - persist_to_workspace:
           root: workspace
 #          paths:
-#            - html
+            - workspace
 
   make-docker-image:
 
