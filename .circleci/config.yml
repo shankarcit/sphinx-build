@@ -9,8 +9,8 @@ jobs:
     steps:
       - run: sudo apt-get update
       - checkout
-      - mkdir -p /tmp/workspace
-      - cp -r * /tmp/workspace
+      - run: mkdir -p /tmp/workspace
+      - run: cp -r * /tmp/workspace
       - run: pip install --user sphinx_rtd_theme sphinx autodocsumm
       - run:
           name: Build doc
