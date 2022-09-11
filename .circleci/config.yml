@@ -33,9 +33,9 @@ workflows:
   build_and_push_image:
     jobs:
       - aws-ecr/build-and-push-image:        
-          aws-access-key-id: $AWS_ACCESS_KEY_ID
+#          aws-access-key-id: $AWS_ACCESS_KEY_ID
           aws-cli-version: latest
-          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
+#          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
           executor: aws-ecr/default
           create-repo: true
           extra-build-args: '--compress'
