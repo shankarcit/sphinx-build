@@ -43,7 +43,7 @@ jobs:
     steps:
       - attach_workspace:
           at: /tmp/workspace/
-      - run
+      - run:
           name: Install dependencies
           command: |
             pip install docker-compose==1.12.0    
