@@ -13,7 +13,7 @@ jobs:
           version: 20.10.14    
       - run: sudo apt-get update
       - checkout
-      - run: pip install --user sphinx_rtd_theme sphinx autodocsumm
+      - run: pip install --user sphinx sphinx_rtd_theme autodocsumm
       - run:
           name: Build doc
           command: |
@@ -24,28 +24,38 @@ jobs:
 #          command: |
 #            docker build -t shankarcit/app:latest doc
 
+      - run:
+          name: Login to repository and build docker image
+          command: |
+            AWS_DEFAULT_REGION = ap-northeast-1
+            AWS_REPOSITORY_URL = 056186925767.dkr.ecr.ap-northeast-1.amazonaws.com
+            REPOSITORY_NAME = ecr-shankar-tool-box/demo-app
+            eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+            docker build -t ${AWS_REPOSITORY_URL}/${REPOSITORY_NAME}:${CIRCLE_BUILD_NUM} doc
+            docker push ${AWS_REPOSITORY_URL}/${REPOSITORY_NAME}:${CIRCLE_BUILD_NUM}
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  build-artifact:
     jobs:
       - make-doc
-  build_and_push_image:
-    jobs:
-      - aws-ecr/build-and-push-image:        
-#          aws-access-key-id: $AWS_ACCESS_KEY_ID
-          aws-cli-version: latest
-#          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
-          executor: aws-ecr/default
-          new-profile-name: 
-          create-repo: true
-          extra-build-args: '--compress'
-          region: ap-northeast-1
-          path: doc
-          platform: linux/amd64
-          public-registry: false
-          push-image: true
-          repo: ecr-shankar-tool-box/demo-app
-          repo-scan-on-push: true
-          skip-when-tags-exist: false
-          tag: 'latest'    
+#  build_and_push_image:
+#    jobs:
+#      - aws-ecr/build-and-push-image:        
+##          aws-access-key-id: $AWS_ACCESS_KEY_ID
+#          aws-cli-version: latest
+##          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
+#          executor: aws-ecr/default
+#          new-profile-name: 
+#          create-repo: true
+#          extra-build-args: '--compress'
+#          region: ap-northeast-1
+#          path: doc
+#          platform: linux/amd64
+#          public-registry: false
+#          push-image: true
+#          repo: ecr-shankar-tool-box/demo-app
+#          repo-scan-on-push: true
+#          skip-when-tags-exist: false
+#          tag: 'latest'    
