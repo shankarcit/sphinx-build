@@ -48,4 +48,4 @@ workflows:
           repo: ecr-shankar-tool-box
           repo-scan-on-push: true
           skip-when-tags-exist: false
-          tag: 'latest,myECRRepoTag'    
+          tag: 'demo-app:latest'    
