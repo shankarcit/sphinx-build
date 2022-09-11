@@ -30,6 +30,7 @@ jobs:
             - html
 
   make-docker-image:
+
     docker:
       - image: cimg/base:current
     steps:
@@ -48,3 +49,5 @@ workflows:
     jobs:
       - make-doc
       - make-docker-image
+          requires:
+            -make-doc
