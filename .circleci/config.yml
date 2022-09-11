@@ -48,6 +48,6 @@ workflows:
   say-hello-workflow:
     jobs:
       - make-doc
-      - make-docker-image
+      - make-docker-image:
           requires:
             - make-doc
