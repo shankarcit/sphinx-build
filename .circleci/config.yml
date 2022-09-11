@@ -19,16 +19,27 @@ jobs:
             path: doc/build/html
             destination: html
 
+      - run:
+          name: persist artifacts
+          command: |
+            mkdir -p workspace
+            cp ./* workspace/
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - html
+
   make-docker-image:
     docker:
       - image: cimg/base:current
     steps:
+      - attach_workspace:
+        at: /tmp/workspace/
       - run: 
           name: Build Docker Image
           command: |
-            cd html
+            cd /tmp/workspace/doc
             docker build -t shankarcit/app:1 .
-
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
