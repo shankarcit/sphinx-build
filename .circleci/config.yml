@@ -9,6 +9,8 @@ jobs:
     steps:
       - run: sudo apt-get update
       - checkout
+      - mkdir -p /tmp/workspace
+      - cp -r * /tmp/workspace
       - run: pip install --user sphinx_rtd_theme sphinx autodocsumm
       - run:
           name: Build doc
@@ -22,12 +24,13 @@ jobs:
       - run:
           name: persist artifacts
           command: |
-            mkdir -p workspace
-            cp -r ./* workspace/
+            - mkdir -p workspace
+            - cp -r /tmp/workspace/* workspace/source
+            - cp -r doc/build/html/* workspace/html
       - persist_to_workspace:
           root: workspace
-          paths:
-            - html
+#          paths:
+#            - html
 
   make-docker-image:
 
