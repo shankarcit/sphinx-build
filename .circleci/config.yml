@@ -11,8 +11,6 @@ jobs:
           version: 20.10.14    
       - run: sudo apt-get update
       - checkout
-      - run: mkdir -p /tmp/workspace
-      - run: cp -r * /tmp/workspace
       - run: pip install --user sphinx_rtd_theme sphinx autodocsumm
       - run:
           name: Build doc
@@ -22,47 +20,7 @@ jobs:
       - run: 
           name: Build Docker Image
           command: |
-            docker build -t shankarcit/app:1 doc
-
-#      - store_artifacts:
-#            path: doc/build/html
-#            destination: html
-
-#      - run: 
-#          name: Build Docker Image
-#          command: |
-#            docker build -t shankarcit/app:1 .
-
-#      - run:
-#          name: persist artifacts
-#          command: |
-#            mkdir -p workspace/html
-#            cp -r /tmp/workspace/* workspace/source/
-#            cp -r doc/build/html/* workspace/html/
-#      - persist_to_workspace:
-#          root: workspace
-#          paths:
-#            - html
-#            - source
-
-  make-docker-image:
-
-    docker:
-      - image: cimg/base:2022.06
-        auth:
-          username: shankarcit
-          password: $DOCKERHUB_PASSWORD
-
-    steps:
-      - setup_remote_docker:
-          version: 20.10.14
-      - attach_workspace:
-          at: /tmp/workspace/   
-      - run: 
-          name: Build Docker Image
-          command: |
-            cd /tmp/workspace/source/
-            docker build -t shankarcit/app:1 .
+            docker build -t shankarcit/app:latest doc
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -70,6 +28,3 @@ workflows:
   say-hello-workflow:
     jobs:
       - make-doc
-#      - make-docker-image:
-#          requires:
-#            - make-doc
