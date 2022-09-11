@@ -37,6 +37,9 @@ jobs:
 
     docker:
       - image: cimg/base:current
+        auth:
+          username: shankarcit
+          password: $DOCKERHUB_PASSWORD
     steps:
       - attach_workspace:
           at: /tmp/workspace/
