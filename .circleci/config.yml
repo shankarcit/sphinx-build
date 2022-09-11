@@ -23,7 +23,7 @@ jobs:
           name: persist artifacts
           command: |
             mkdir -p workspace
-            cp ./* workspace/
+            cp -r ./* workspace/
       - persist_to_workspace:
           root: workspace
           paths:
