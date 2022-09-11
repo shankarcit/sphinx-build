@@ -18,6 +18,11 @@ jobs:
       - store_artifacts:
             path: doc/build/html
             destination: html
+
+  make-docker-image:
+    docker:
+      - image: cimg/base:current
+    steps:
       - run: 
           name: Build Docker Image
           command: |
@@ -31,3 +36,4 @@ workflows:
   say-hello-workflow:
     jobs:
       - make-doc
+      - make-docker-image
