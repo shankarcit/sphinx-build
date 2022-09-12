@@ -77,6 +77,6 @@ workflows:
             - make-doc      
       - create-deployment:
           requires:
-            - build_and_push_image       
+            - build-push-image       
           cluster-name: shan-tempdev-k8s-09101237
           aws-region: ap-northeast-1
