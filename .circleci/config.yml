@@ -35,7 +35,7 @@ jobs:
             #AWS_DEFAULT_REGION="ap-northeast-1"
             #AWS_REPOSITORY_URL = 056186925767.dkr.ecr.ap-northeast-1.amazonaws.com
             #REPOSITORY_NAME = ecr-shankar-tool-box/demo-app
-            eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+            eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email --profile)
             docker build -t ${AWS_REPOSITORY_URL}/${REPOSITORY_NAME}:${CIRCLE_BUILD_NUM} doc
             docker push ${AWS_REPOSITORY_URL}/${REPOSITORY_NAME}:${CIRCLE_BUILD_NUM}
 
