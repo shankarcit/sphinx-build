@@ -69,7 +69,7 @@ workflows:
           repo: ecr-shankar-tool-box/demo-app
           repo-scan-on-push: true
           skip-when-tags-exist: false
-          tag: '$CIRCLE_BUILD_NUMBER'    
+          tag: '${CIRCLE_BUILD_NUMBER}'
   
       - create-deployment:
           requires:
@@ -85,7 +85,6 @@ workflows:
             - aws-ecr/build-and-push-image       
           filters:
             branches:
-              only: develop             
+              only: circleci-project-setup             
           cluster-name: shan-tempdev-k8s-09101237
           aws-region: ap-northeast-1          
-          
