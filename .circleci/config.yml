@@ -87,7 +87,6 @@ workflows:
     jobs:
       - make-doc
   build_and_push_image:
-
     jobs:
       requires:
         - make-doc    
