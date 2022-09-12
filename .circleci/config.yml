@@ -57,7 +57,7 @@ workflows:
       - make-doc
       - aws-ecr/build-and-push-image:
           requires:
-            - build-and-push-image         
+            - make-doc         
           aws-cli-version: latest
           executor: aws-ecr/default
           new-profile-name: 
@@ -75,6 +75,6 @@ workflows:
     
       - create-deployment:
           requires:
-            - build-and-push-image       
+            - aws-ecr/build-and-push-image       
           cluster-name: shan-tempdev-k8s-09101237
           aws-region: ap-northeast-1
