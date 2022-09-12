@@ -23,23 +23,6 @@ jobs:
             cd doc
             make html
 
-  build-and-push-image:
-    - aws-ecr/build-and-push-image:   
-        aws-cli-version: latest
-        executor: aws-ecr/default
-        new-profile-name: 
-        create-repo: true
-        extra-build-args: '--compress'
-        region: ap-northeast-1
-        path: doc
-        platform: linux/amd64
-        public-registry: false
-        push-image: true
-        repo: ecr-shankar-tool-box/demo-app
-        repo-scan-on-push: true
-        skip-when-tags-exist: false
-        tag: 'latest'    
-
   create-deployment:
     docker:
       - image: 'cimg/python:3.10'
@@ -72,9 +55,24 @@ workflows:
   build-artifact:
     jobs:
       - make-doc
-      - build-and-push-image:
+      - aws-ecr/build-and-push-image:
           requires:
-            - make-doc      
+            - build-and-push-image         
+          aws-cli-version: latest
+          executor: aws-ecr/default
+          new-profile-name: 
+          create-repo: true
+          extra-build-args: '--compress'
+          region: ap-northeast-1
+          path: doc
+          platform: linux/amd64
+          public-registry: false
+          push-image: true
+          repo: ecr-shankar-tool-box/demo-app
+          repo-scan-on-push: true
+          skip-when-tags-exist: false
+          tag: 'latest'    
+    
       - create-deployment:
           requires:
             - build-and-push-image       
