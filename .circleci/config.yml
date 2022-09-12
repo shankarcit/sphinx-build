@@ -29,7 +29,7 @@ jobs:
     steps:      
       - aws-ecr/build-and-push-image:   
           aws-cli-version: latest
-          executor: aws-ecr/default
+#          executor: aws-ecr/default
           new-profile-name: 
           create-repo: true
           extra-build-args: '--compress'
