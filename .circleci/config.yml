@@ -76,4 +76,4 @@ workflows:
           repo: ecr-shankar-tool-box/demo-app
           repo-scan-on-push: true
           skip-when-tags-exist: false
-          tag: 'latest'    
+          tag: '${CIRCLE_BUILD_NUM}'    
