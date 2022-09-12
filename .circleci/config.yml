@@ -87,10 +87,10 @@ workflows:
     jobs:
       - make-doc
   build_and_push_image:
+  requires:
+    - make-doc
     jobs:
       - aws-ecr/build-and-push-image:   
-          requires:
-            - make-doc     
 #          aws-access-key-id: $AWS_ACCESS_KEY_ID
           aws-cli-version: latest
 #          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
