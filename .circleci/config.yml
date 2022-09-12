@@ -48,19 +48,6 @@ jobs:
 #            docker push ${AWS_REPOSITORY_URL}/${REPOSITORY_NAME}:${CIRCLE_BUILD_NUM}
 
 
-
-  test-doc:
-    docker:
-      - image: circleci/python:3.9-buster
-    steps:
-      - setup_remote_docker:
-          version: 20.10.14    
-      - run:
-        name: test the app
-        command: |
-          command: |
-
-
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
