@@ -25,22 +25,23 @@ jobs:
 
   build-push-image:
     docker:
-      - image: circleci/python:3.9-buster    
-    - aws-ecr/build-and-push-image:   
-        aws-cli-version: latest
-        executor: aws-ecr/default
-        new-profile-name: 
-        create-repo: true
-        extra-build-args: '--compress'
-        region: ap-northeast-1
-        path: doc
-        platform: linux/amd64
-        public-registry: false
-        push-image: true
-        repo: ecr-shankar-tool-box/demo-app
-        repo-scan-on-push: true
-        skip-when-tags-exist: false
-        tag: 'latest'    
+      - image: circleci/python:3.9-buster
+    steps:      
+      - aws-ecr/build-and-push-image:   
+          aws-cli-version: latest
+          executor: aws-ecr/default
+          new-profile-name: 
+          create-repo: true
+          extra-build-args: '--compress'
+          region: ap-northeast-1
+          path: doc
+          platform: linux/amd64
+          public-registry: false
+          push-image: true
+          repo: ecr-shankar-tool-box/demo-app
+          repo-scan-on-push: true
+          skip-when-tags-exist: false
+          tag: 'latest'    
 
   create-deployment:
     docker:
