@@ -23,7 +23,9 @@ jobs:
             cd doc
             make html
 
-  build-push-image:    
+  build-push-image:
+    docker:
+      - image: circleci/python:3.9-buster    
     - aws-ecr/build-and-push-image:   
         aws-cli-version: latest
         executor: aws-ecr/default
