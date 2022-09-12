@@ -4,6 +4,8 @@
 version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@8.1.2
+  aws-eks: circleci/aws-eks@2.2.0
+  kubernetes: circleci/kubernetes@1.3  
 #  aws-cli: circleci/aws-cli@2.0.6
 jobs:
 #  aws-cli-cred-setup:
@@ -48,6 +50,32 @@ jobs:
 #            docker push ${AWS_REPOSITORY_URL}/${REPOSITORY_NAME}:${CIRCLE_BUILD_NUM}
 
 
+  create-deployment:
+    docker:
+      - image: 'cimg/python:3.10'
+    parameters:
+      cluster-name:
+        description: |
+          Cluster Name
+        type: string
+      aws-region:
+        description: |
+          AWS Region
+        type: string        
+    steps:
+      - run:
+          name: Build doc
+          command: |
+            git clone https://github.com/shankarcit/eks-deploy.git ~/deployment/configs/
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: << parameters.cluster-name >>
+          aws-region: << parameters.aws-region >>
+          install-kubectl: true
+      - kubernetes/create-or-update-resource:
+          get-rollout-status: true
+          resource-file-path: ~/deployment/configs/deployment/demo-app-deployment.yaml
+          resource-name: deployment/demoapp-deployment
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -60,7 +88,9 @@ workflows:
       - make-doc
   build_and_push_image:
     jobs:
-      - aws-ecr/build-and-push-image:        
+      - aws-ecr/build-and-push-image:   
+          requires:
+            - make-doc     
 #          aws-access-key-id: $AWS_ACCESS_KEY_ID
           aws-cli-version: latest
 #          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
@@ -76,4 +106,12 @@ workflows:
           repo: ecr-shankar-tool-box/demo-app
           repo-scan-on-push: true
           skip-when-tags-exist: false
-          tag: '${CIRCLE_BUILD_NUM}'    
+          tag: 'latest'    
+
+  deployment:
+    jobs:
+      - create-deployment:
+          requires:
+            - build_and_push_image       
+          cluster-name: shan-tempdev-k8s-09101237
+          aws-region: ap-northeast-1
